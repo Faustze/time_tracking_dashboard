@@ -1,0 +1,16 @@
+import { defineConfig } from 'vite'
+import path from 'path'
+
+export default defineConfig({
+  root: 'src',
+  base: '/time_tracking_dashboard/',
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  }
+})

@@ -1,0 +1,20 @@
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (min-width: 48em) { @content; }       // 768px
+  } @else if $breakpoint == desktop {
+    @media (min-width: 90em) { @content; }        // 1440px
+  }
+}
+
+// --- Flexbox с направлением ---
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// --- Transition ---
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}

@@ -1,0 +1,280 @@
+@use 'fonts';
+@use 'variables';
+@use 'reset';
+@use 'mixins';
+
+// ============= Mobile-first =============
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 5rem 1.5rem;
+
+  // Центрируем контент и ограничиваем максимальную ширину
+  max-width: 69.375rem;   // 1110px — максимальная ширина контента
+  margin: 0 auto;
+
+  @include mixins.respond-to(desktop) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    row-gap: 2rem;
+    column-gap: 1.875rem;
+    align-content: center;
+    min-height: 100vh;
+  }
+
+  // ============================================
+  // ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ (верхняя карточка)
+  // ============================================
+  &__profile {
+    background-color: var(--color-navy-900);
+    border-radius: var(--border-radius);
+
+    @include mixins.respond-to(desktop) {
+      grid-row: 1 / -1; // Занимает оба ряда (всю левую колонку)
+      grid-column: 1 / 2;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    // --- Верхняя часть профиля (аватар + имя) ---
+    &-header {
+      @include mixins.flex(row, flex-start, center);
+      background-color: var(--color-purple-600);
+      border-radius: var(--border-radius);
+      padding: 2rem 1.5rem;
+      gap: 1.25rem;
+
+      @include mixins.respond-to(desktop) {
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1; // Занимает всё доступное пространство
+        padding: 2rem 1.75rem 5rem;
+      }
+    }
+
+    // --- Аватар пользователя ---
+    &-avatar {
+      width: 4.375rem;
+      height: 4.375rem;
+      border-radius: 50%;
+      border: 3px solid #fff;
+
+      @include mixins.respond-to(desktop) {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    // --- Текстовый блок с именем ---
+    // &-info — контейнер без собственных стилей,
+    // используется только для группировки в разметке
+
+    &-label {
+      font-size: 0.9375rem;       // 15px
+      color: var(--color-navy-200);
+      margin-bottom: 0.25rem;
+    }
+
+    &-name {
+      font-size: 1.5rem;
+      font-weight: var(--font-weight-light);
+
+      @include mixins.respond-to(desktop) {
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+    }
+
+    // --- Переключатель периодов (Daily / Weekly / Monthly) ---
+    &-timeframes {
+      padding: 1.5rem 1.75rem;
+      @include mixins.flex(row, space-between, center);
+
+      @include mixins.respond-to(desktop) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+        padding: 1.75rem;
+      }
+    }
+
+    &-period {
+      font-size: 1.125rem;        // 18px
+      color: var(--color-purple-500);
+      @include mixins.transition(color);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+
+      &:hover,
+      &:focus-visible {
+        color: #fff;
+      }
+
+      &--active {
+        color: #fff;
+      }
+    }
+  }
+
+  // ============================================
+  // КАРТОЧКИ АКТИВНОСТЕЙ (Work, Play, Study, ...)
+  // ============================================
+  &__card {
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+
+    @include mixins.respond-to(desktop) {
+      margin-bottom: 0;
+    }
+
+    &-banner {
+      position: relative;
+      height: 11.5rem;
+      z-index: -1;
+      background-repeat: no-repeat;
+      background-position: top 0 right 1rem;
+      background-size: 3.625rem;
+      border-radius: var(--border-radius);
+
+      // Модификаторы для каждого типа активности
+      &--work {
+        background-color: var(--color-orange-300);
+        background-image: url('../images/icon-work.svg');
+      }
+
+      &--play {
+        background-color: var(--color-blue-300);
+        background-image: url('../images/icon-play.svg');
+      }
+
+      &--study {
+        background-color: var(--color-pink-400);
+        background-image: url('../images/icon-study.svg');
+      }
+
+      &--exercise {
+        background-color: var(--color-green-400);
+        background-image: url('../images/icon-exercise.svg');
+      }
+
+      &--social {
+        background-color: var(--color-purple-700);
+        background-image: url('../images/icon-social.svg');
+      }
+
+      &--self-care {
+        background-color: var(--color-yellow-300);
+        background-image: url('../images/icon-self-care.svg');
+      }
+    }
+
+    // --- Основное содержимое карточки ---
+    &-body {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 2.5rem;
+      z-index: 1;
+      background-color: var(--color-navy-900);
+      padding: var(--card-padding);
+      border-radius: var(--border-radius);
+      @include mixins.transition(background-color);
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--color-navy-800);
+      }
+
+      @include mixins.respond-to(desktop) {
+        // На десктопе карточка занимает всю высоту ячейки grid
+        height: calc(100% - 2.375rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+
+    // --- Заголовок карточки (название + кнопка меню) ---
+    &-header {
+      @include mixins.flex(row, space-between, center);
+      margin-bottom: 0.75rem;
+
+      @include mixins.respond-to(desktop) {
+        margin-bottom: 0;
+      }
+    }
+
+    &-title {
+      font-size: 1.125rem;
+      font-weight: var(--font-weight-medium);
+    }
+
+    // --- Кнопка-меню (три точки) ---
+    &-menu {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      @include mixins.transition(opacity);
+
+      &:hover,
+      &:focus-visible img {
+        filter: brightness(0) invert(1);
+      }
+    }
+
+    // --- Блок с часами ---
+    &-content {
+      @include mixins.flex(row, space-between, center);
+
+      @include mixins.respond-to(desktop) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+    }
+
+    // --- Текущее значение часов ---
+    &-current {
+      font-size: 2rem;
+      font-weight: var(--font-weight-light);
+
+      @include mixins.respond-to(desktop) {
+        font-size: 3.5rem;
+      }
+    }
+
+    // --- Предыдущее значение часов ---
+    &-previous {
+      font-size: 0.9375rem;
+      color: var(--color-navy-200);
+    }
+  }
+}
+
+/* FOOTER */
+.attribution {
+  font-size: 0.75em;
+  text-align: center;
+  padding: 1em;
+  color: white; 
+
+  a {
+    font-weight: 700;
+    color: var(--color-purple-500);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+      outline: none;
+      color: white;
+    }
+  }
+}
