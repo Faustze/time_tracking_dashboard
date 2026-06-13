@@ -18,6 +18,7 @@
   --color-navy-800: hsl(235, 46%, 30%);
   --color-purple-500: hsl(235, 45%, 61%);
   --color-navy-200: hsl(236, 100%, 87%);
+  --color-navy-200: hsl(236, 100%, 87%);
   --font-family: 'Rubik', sans-serif;
   --font-size-body: 1.125rem;
   --font-weight-light: 300;
@@ -41,7 +42,7 @@ body {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   background-color: var(--color-navy-950);
-  color: #fff;
+  color: white;
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -100,7 +101,7 @@ body {
   width: 4.375rem;
   height: 4.375rem;
   border-radius: 50%;
-  border: 3px solid #fff;
+  border: 3px solid white;
 }
 @media (min-width: 90em) {
   .dashboard__profile-avatar {
@@ -148,10 +149,10 @@ body {
   font-size: inherit;
 }
 .dashboard__profile-period:hover, .dashboard__profile-period:focus-visible {
-  color: #fff;
+  color: white;
 }
 .dashboard__profile-period--active {
-  color: #fff;
+  color: white;
 }
 .dashboard__card {
   border-radius: var(--border-radius);
